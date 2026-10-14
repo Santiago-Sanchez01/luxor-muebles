@@ -1,0 +1,58 @@
+// Referencias proporcionadas para esta fase: no son especificaciones comerciales.
+// No se asignan subcategorías ni prestaciones sin confirmación del negocio.
+export const productos = [
+  {
+    id: 'chicago',
+    nombre: 'Chicago',
+    categoria: 'Sillones',
+    medidasReferencia: { valores: [200, 160, 90], unidad: 'cm', alturaInformada: true },
+    descripcion: 'Modelo Chicago de referencia para el catálogo provisional.',
+    imagen: null,
+    destacado: true,
+  },
+  {
+    id: 'nube',
+    nombre: 'Nube',
+    categoria: 'Sillones',
+    medidasReferencia: { valores: [220, 120], unidad: 'cm', alturaInformada: false },
+    descripcion: 'Modelo Nube de referencia para el catálogo provisional.',
+    imagen: null,
+    destacado: true,
+  },
+  {
+    id: 'valentina',
+    nombre: 'Valentina',
+    categoria: 'Sillones',
+    medidasReferencia: { valores: [240, 180, 90], unidad: 'cm', alturaInformada: true },
+    descripcion: 'Modelo Valentina de referencia para el catálogo provisional.',
+    imagen: null,
+    destacado: true,
+  },
+  {
+    id: 'miami',
+    nombre: 'Miami',
+    categoria: 'Sillones',
+    medidasReferencia: { valores: [230, 160, 100], unidad: 'cm', alturaInformada: true },
+    descripcion: 'Modelo Miami de referencia para el catálogo provisional.',
+    imagen: null,
+    destacado: true,
+  },
+  {
+    id: 'amelia',
+    nombre: 'Amelia',
+    categoria: 'Sillones',
+    medidasReferencia: { valores: [200, 100], unidad: 'cm', alturaInformada: false },
+    descripcion: 'Modelo Amelia de referencia para el catálogo provisional.',
+    imagen: null,
+    destacado: true,
+  },
+  {
+    id: 'denver',
+    nombre: 'Denver',
+    categoria: 'Sillones',
+    medidasReferencia: { valores: [220, 160, 90], unidad: 'cm', alturaInformada: true },
+    descripcion: 'Modelo Denver de referencia para el catálogo provisional.',
+    imagen: null,
+    destacado: true,
+  },
+];

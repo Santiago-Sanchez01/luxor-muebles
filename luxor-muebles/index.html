@@ -27,7 +27,7 @@
             <li><a href="#opiniones">Opiniones</a></li>
             <li><a href="#contacto">Contacto</a></li>
           </ul>
-          <a class="button header-whatsapp" href="#contacto">WhatsApp</a>
+          <a class="button header-whatsapp" data-whatsapp target="_blank" rel="noopener noreferrer" aria-label="Consultar por WhatsApp (abre en otra pestaña)" hidden>WhatsApp</a>
         </nav>
       </div>
     </header>
@@ -39,15 +39,48 @@
           <p class="hero-description">Explorá nuestros modelos y descubrí cómo personalizar tu próximo sillón.</p>
           <div class="hero-actions">
             <a class="button button-primary" href="#modelos">Explorar catálogo</a>
-            <a class="button button-secondary" href="#contacto">Consultar por WhatsApp</a>
+            <a class="button button-secondary" data-whatsapp target="_blank" rel="noopener noreferrer" aria-label="Consultar por WhatsApp (abre en otra pestaña)" hidden>Consultar por WhatsApp</a>
           </div>
         </div>
       </section>
       <section id="categorias" class="container" aria-labelledby="titulo-categorias">
         <h2 id="titulo-categorias">Categorías</h2>
       </section>
+      <section id="destacados" class="container featured" aria-labelledby="titulo-destacados">
+        <div class="featured-heading">
+          <div>
+            <p class="product-category">Selección Luxor</p>
+            <h2 id="titulo-destacados">Modelos destacados</h2>
+          </div>
+          <a href="#modelos">Ver catálogo completo</a>
+        </div>
+        <p class="catalogue-note">Modelos de referencia con medidas provisionales, pendientes de confirmación comercial.</p>
+        <p id="destacados-ayuda" class="catalogue-note">Deslizá para explorar. Con el carrusel enfocado, usá las flechas izquierda y derecha; Inicio y Fin llevan a los extremos.</p>
+        <div id="controles-destacados" class="carousel-controls" hidden>
+          <button id="destacados-anterior" class="button carousel-button" type="button" aria-label="Ver destacados anteriores" aria-controls="lista-destacados">Anterior</button>
+          <button id="destacados-siguiente" class="button carousel-button" type="button" aria-label="Ver destacados siguientes" aria-controls="lista-destacados">Siguiente</button>
+        </div>
+        <ul id="lista-destacados" class="featured-track" aria-label="Modelos destacados" aria-describedby="destacados-ayuda" tabindex="0"></ul>
+        <noscript><p>Activá JavaScript para visualizar los modelos destacados.</p></noscript>
+      </section>
       <section id="modelos" class="container" aria-labelledby="titulo-modelos">
-        <h2 id="titulo-modelos">Modelos destacados</h2>
+        <h2 id="titulo-modelos">Catálogo</h2>
+        <p id="catalogo-nota" class="catalogue-note">Modelos y medidas de referencia provisionales del catálogo MS Sillones. No constituyen especificaciones comerciales definitivas; deben confirmarse con Luxor Muebles.</p>
+        <div id="catalogo-controles" class="catalogue-controls" hidden>
+          <div class="catalogue-field">
+            <label for="buscar-productos">Buscar por nombre</label>
+            <input id="buscar-productos" type="search" placeholder="Nombre del modelo" aria-controls="lista-productos">
+          </div>
+          <div class="catalogue-field">
+            <label for="categoria-productos">Categoría</label>
+            <select id="categoria-productos" aria-controls="lista-productos"><option value="">Todos</option></select>
+          </div>
+        </div>
+        <p id="catalogo-cantidad" class="catalogue-note" hidden></p>
+        <p id="catalogo-anuncio" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true"></p>
+        <ul id="lista-productos" class="product-grid" aria-label="Catálogo de modelos" aria-describedby="catalogo-nota"></ul>
+        <p id="catalogo-vacio" class="catalogue-note" hidden>No encontramos modelos con esa búsqueda y categoría. Probá otro nombre o seleccioná Todos.</p>
+        <noscript><p>Para visualizar los modelos, activá JavaScript. Podés consultar desde la sección <a href="#contacto">Contacto</a>.</p></noscript>
       </section>
       <section id="personalizacion" class="container" aria-labelledby="titulo-personalizacion">
         <h2 id="titulo-personalizacion">Personalización</h2>

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Modelos de referencia de Luxor Muebles. Consultá las medidas y opciones pendientes de confirmación.">
+    <title>Ficha de producto | Luxor Muebles</title>
+    <link rel="stylesheet" href="./css/styles.css">
+    <script type="module" src="./js/producto.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="./index.html">LUXOR MUEBLES</a>
+        <nav aria-label="Navegación de la ficha"><a class="button" href="./index.html#modelos">Volver al catálogo</a></nav>
+      </div>
+    </header>
+    <main id="contenido" class="container product-page" tabindex="-1">
+      <h1 id="producto-nombre">Ficha de producto</h1>
+      <p id="producto-estado" role="status">Cargando modelo…</p>
+      <noscript><p>Activá JavaScript para visualizar la ficha. Podés volver al catálogo desde el enlace superior.</p></noscript>
+      <div id="producto-detalle" hidden>
+        <div class="product-detail-layout">
+          <section class="product-gallery" aria-label="Galería del modelo">
+            <div id="galeria-principal" class="gallery-main"></div>
+            <div id="galeria-controles" class="carousel-controls" hidden>
+              <button id="foto-anterior" class="button carousel-button" type="button" aria-controls="galeria-principal">Foto anterior</button>
+              <button id="foto-siguiente" class="button carousel-button" type="button" aria-controls="galeria-principal">Foto siguiente</button>
+            </div>
+            <div id="galeria-miniaturas" class="gallery-thumbnails" aria-label="Elegir fotografía" hidden></div>
+            <p id="galeria-estado" class="catalogue-note" role="status"></p>
+          </section>
+          <section class="product-detail-info" aria-labelledby="informacion-titulo">
+            <h2 id="informacion-titulo">Información del modelo</h2>
+            <p id="producto-categoria" class="product-category"></p>
+            <p id="producto-descripcion"></p>
+            <div><h3>Medidas de referencia</h3><p id="producto-medidas"></p></div>
+            <p>Medidas de referencia sujetas a confirmación.</p>
+            <a class="button button-primary" href="#consulta-producto">Consultar este modelo</a>
+          </section>
+        </div>
+        <section class="product-detail-section" aria-labelledby="personalizacion-titulo">
+          <h2 id="personalizacion-titulo">Personalización</h2>
+          <p id="preferencias-nota" class="catalogue-note">Las opciones seleccionadas son preferencias para tu consulta. La disponibilidad y las combinaciones deben confirmarse con Luxor Muebles.</p>
+          <form id="preferencias-form" class="preferences-form" aria-describedby="preferencias-nota">
+            <div id="preferencias-controles" class="preferences-controls"></div>
+            <button class="button carousel-button" type="reset">Restablecer selección</button>
+          </form>
+          <section class="selection-summary" aria-labelledby="seleccion-titulo">
+            <h3 id="seleccion-titulo">Tu selección</h3>
+            <dl id="seleccion-resumen"></dl>
+          </section>
+        </section>
+        <section id="consulta-producto" class="product-detail-section" aria-labelledby="consulta-titulo">
+          <h2 id="consulta-titulo">Consultá por este modelo</h2>
+          <p class="catalogue-note">Esta es una consulta, no una compra ni una reserva. WhatsApp abrirá el mensaje preparado; revisalo y confirmá el envío allí.</p>
+          <label class="query-label" for="consulta-texto">Texto de tu consulta</label>
+          <textarea id="consulta-texto" class="query-text" rows="9" readonly></textarea>
+          <div class="query-actions">
+            <a id="consultar-whatsapp" class="button button-primary" target="_blank" rel="noopener noreferrer" aria-label="Consultar por WhatsApp (abre en otra pestaña)" hidden>Consultar por WhatsApp</a>
+            <button id="copiar-consulta" class="button carousel-button" type="button">Copiar consulta</button>
+          </div>
+          <p id="copia-estado" class="catalogue-note" role="status" aria-live="polite" aria-atomic="true"></p>
+          <a class="detail-back" href="./index.html#contacto">Ir a Contacto</a>
+        </section>
+        <section id="relacionados" class="product-detail-section" aria-labelledby="relacionados-titulo" hidden>
+          <h2 id="relacionados-titulo">Otros modelos de la misma categoría</h2>
+          <ul id="lista-relacionados" class="product-grid" aria-label="Modelos relacionados"></ul>
+        </section>
+      </div>
+      <a class="detail-back" href="./index.html#modelos">Volver al catálogo</a>
+    </main>
+    <footer class="site-footer"><div class="container"><p>Luxor Muebles</p></div></footer>
+  </body>
+</html>
