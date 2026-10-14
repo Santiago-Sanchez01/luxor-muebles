@@ -1,3 +1,5 @@
+import { obtenerImagenes } from './imagenes.js';
+
 export const createProductCard = (producto) => {
   const item = document.createElement('li');
   const card = document.createElement('article');
@@ -8,6 +10,31 @@ export const createProductCard = (producto) => {
   const placeholderLabel = document.createElement('span');
   placeholderLabel.textContent = 'Fotografía pendiente';
   placeholder.append(placeholderLabel);
+  const media = document.createElement('div');
+  media.className = 'product-media';
+  media.append(placeholder);
+  const photos = obtenerImagenes(producto);
+  const tryPhoto = (index) => {
+    if (!photos[index]) return;
+    const image = document.createElement('img');
+    image.className = 'product-photo';
+    image.alt = photos[index].alt;
+    image.loading = 'lazy';
+    image.decoding = 'async';
+    image.width = 1200;
+    image.height = 900;
+    image.addEventListener('load', () => {
+      placeholder.remove();
+      image.classList.add('is-loaded');
+    }, { once: true });
+    image.addEventListener('error', () => {
+      image.remove();
+      tryPhoto(index + 1);
+    }, { once: true });
+    image.src = photos[index].src;
+    media.append(image);
+  };
+  tryPhoto(0);
 
   const content = document.createElement('div');
   content.className = 'product-content';
@@ -35,7 +62,7 @@ export const createProductCard = (producto) => {
   action.setAttribute('aria-label', `Ver modelo ${producto.nombre}`);
   action.textContent = 'Ver modelo';
   content.append(action);
-  card.append(placeholder, content);
+  card.append(media, content);
   item.append(card);
   return item;
 };

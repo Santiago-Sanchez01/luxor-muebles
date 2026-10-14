@@ -29,6 +29,7 @@ luxor-muebles/
 │   ├── opciones.js
 │   ├── config.js
 │   ├── tarjetas.js
+│   ├── imagenes.js
 │   └── productos.js
 └── assets/
     ├── images/
@@ -94,7 +95,8 @@ y el header se desplaza con la página.
 
 El hero móvil utiliza la altura necesaria para su contenido y espaciado, evitando
 rellenar la pantalla con espacio vacío. Las siete secciones siguen presentes; Categorías,
-Personalización, Opiniones, Nosotros y Contacto conservan su estructura provisional.
+Opiniones, Nosotros y Contacto conservan su estructura provisional. Personalización
+incorpora la presentación editorial de la Fase 05C.
 El catálogo inicial de la Fase 03A conserva el destino `#modelos`. El footer
 definitivo no está desarrollado.
 
@@ -123,8 +125,8 @@ mediante `createProductCard`. Usa `createElement`, `textContent` y `replaceChild
 los textos se muestran como texto, sin interpretar etiquetas HTML.
 
 Limitaciones: sin precios ni stock. El campo
-`imagen` queda reservado: esta fase siempre muestra placeholders CSS, sin solicitar
-imágenes en las tarjetas. Desde la Fase 04A, “Ver modelo” enlaza a la ficha. Sin JavaScript,
+`imagenes` admite fotos autorizadas y `imagen` se conserva por compatibilidad.
+Sin fotografías cargables se muestran placeholders CSS. Desde la Fase 04A, “Ver modelo” enlaza a la ficha. Sin JavaScript,
 se muestra un aviso en lugar de las tarjetas. Las especificaciones comerciales y
 las fotografías requieren confirmación antes de publicarse como definitivas.
 
@@ -256,12 +258,152 @@ comprobar el destinatario y el texto, sin enviar durante la prueba. Repetir con 
 en los cuatro anchos y con texto al 200 %. La apertura final depende de WhatsApp y
 de su instalación o sesión en el dispositivo.
 
-Pendientes: logo oficial y fotografía local aprobada del sillón.
-Por ahora se usa el texto “LUXOR MUEBLES” y un fondo CSS con degradados.
-Para incorporar la foto más adelante, colocar el recurso aprobado
-en `assets/images/` y actualizar `--hero-image` en CSS con una ruta relativa a ese archivo.
+## Fase 05A: identidad visual oficial
 
-No se incorporaron imágenes, reseñas, precios, garantías, direcciones ni horarios.
+Recursos locales disponibles, conservados sin modificaciones:
+
+- `assets/images/luxor-logo-fondo-oscuro.png`: logo oficial utilizado en los headers
+  oscuros de `index.html` y `producto.html`.
+- `assets/images/luxor-logo-fondo-claro.png`: versión oficial para fondos claros,
+  disponible para su uso cuando corresponda; no se incorpora en secciones nuevas.
+
+Ambos originales miden 2118 × 689 px. Los headers muestran el logo con ancho de
+152 px en móvil y tablet y 176 px desde 1024 px, con altura automática para conservar
+sus proporciones. Los atributos HTML `width` y `height` reservan la proporción antes
+de cargar; `alt="Luxor Muebles"` identifica el enlace para lectores de pantalla.
+El enlace lleva a Inicio en ambas páginas y mantiene foco visible y área de al menos
+48 px de altura. No se alteró la paleta Luxor Premium ni el diseño de otras secciones.
+
+Para probar: verificar carga, proporción y legibilidad del logo en ambas páginas,
+a 375, 768, 1024 y 1440 px y con texto ampliado al 200 %. Comprobar que no se superpone
+al menú y que el enlace funciona con teclado. Las fotografías de los sillones siguen
+pendientes; el hero conserva su fondo CSS con degradados.
+
+## Fase 05B.1: biblioteca de fotografías
+
+Carpetas preparadas (vacías hasta incorporar recursos autorizados):
+
+```text
+assets/images/
+├── luxor-logo-fondo-claro.png
+├── luxor-logo-fondo-oscuro.png
+├── productos/
+│   ├── valentina/
+│   ├── chicago/
+│   ├── nube/
+│   ├── miami/
+│   ├── amelia/
+│   └── denver/
+├── hero/
+└── marca/
+```
+
+Los logos originales permanecen en su ubicación; `marca/` queda disponible para
+futuros recursos. Git no guarda estas carpetas vacías hasta que contengan archivos.
+
+Cada producto ahora tiene `imagenes: []`, además del campo existente `imagen: null`.
+La galería usa un array de objetos `{ src, alt }`; la primera foto es la principal.
+`js/imagenes.js` normaliza los datos para ambas vistas, evita duplicados y admite solo
+rutas locales dentro de `assets/images/`. Cuando el array está vacío, usa `imagen`
+si hay una ruta antigua definida. No se han asignado rutas a fotos inexistentes.
+
+Para incorporar la primera fotografía de Valentina:
+
+1. Conseguí una fotografía real y autorizada. Preferí WebP o AVIF; también se admiten
+   JPG/JPEG y PNG. Usá nombres en minúsculas, sin espacios ni tildes, con guiones,
+   por ejemplo `valentina-01.webp`. Optimizá el archivo antes de incorporarlo y
+   verificá que conserve el detalle; evitá originales innecesariamente grandes.
+2. Colocá ese archivo en `assets/images/productos/valentina/`.
+3. Solo después de que exista, completá `imagenes` en el objeto Valentina:
+
+```js
+imagenes: [
+  {
+    src: './assets/images/productos/valentina/valentina-01.webp',
+    alt: 'Descripción fiel de la fotografía autorizada de Valentina',
+  },
+],
+```
+
+Este ejemplo es una convención documental, no una fotografía existente. Reemplazá
+el texto alternativo por una descripción real. Para más fotos, agregá objetos con
+nombres consecutivos y textos alternativos propios; no repitas la misma imagen.
+
+Las tarjetas usan la primera foto cargable, con `loading="lazy"` y `decoding="async"`.
+Si falla, prueban la siguiente; si todas fallan, conservan el placeholder. La ficha
+carga su imagen principal sin lazy porque aparece en la primera pantalla y aplica
+lazy a las miniaturas. Con cero imágenes hay un placeholder; con una no se muestran
+controles ni miniaturas; con varias aparecen los controles accesibles existentes.
+Las fotos que fallan se retiran de la galería.
+
+Se reserva un área 4:3 para reducir saltos de diseño. `object-fit: contain` conserva
+la foto completa, sin deformar ni recortar el sillón. Los atributos de tamaño indican
+la proporción del área de presentación, sin modificar los archivos originales.
+No se descargaron fotografías ni se publicaron recursos del catálogo mayorista.
+
+## Fase 05B.3: hero cinematográfico
+
+El hero utiliza `assets/images/hero/hero-luxor-original.png`, una ambientación
+ilustrativa generada con IA. No es una fotografía de un producto comercial específico
+de Luxor y no se incorpora al catálogo ni a las fichas.
+
+`--hero-image` en `css/styles.css` define la ruta local relativa al CSS. Desde 640 px,
+la imagen cubre el hero y un degradado oscuro protege el texto izquierdo, conservando
+el sillón hacia la derecha. En móvil, la misma imagen se encuadra en una franja inferior
+de 12rem con transición oscura; el título y los botones permanecen sobre fondo carbón,
+sin necesitar otra imagen ni una altura mínima de pantalla completa.
+
+Se conservan los textos, enlaces y animación previa; no se añadieron animaciones.
+La altura se reserva mediante CSS, por lo que cargar el fondo no cambia el tamaño
+del hero. Si el recurso falla, permanece el fondo provisional con degradados.
+El original PNG se conserva sin modificaciones; pesa aproximadamente 2,36 MB.
+Una eventual versión WebP requiere informar su incorporación antes de cambiar la ruta.
+
+Para reemplazar la ambientación, colocar primero el nuevo recurso autorizado dentro
+de `assets/images/hero/`, actualizar `--hero-image` y revisar los encuadres a 375, 768,
+1024 y 1440 px y con texto al 200 %. Conservar el original y actualizar esta documentación
+si cambia el origen o carácter ilustrativo de la imagen.
+
+## Fase 05C: sección editorial de personalización
+
+La sección existente `#personalizacion` explica tres pasos: elegir un modelo,
+indicar preferencias y consultar con Luxor. El título aprobado es “Diseñado para tu
+espacio. Pensado para vos.” y “Explorar modelos” lleva al catálogo `#modelos`.
+
+En desktop se presenta un área visual a la izquierda y los pasos a la derecha;
+en móvil y tablet el orden es título, imagen y pasos. La lista ordenada utiliza
+encabezados `h3` bajo el `h2` de la sección. Los números visuales se ocultan al lector
+de pantalla para evitar repetir la numeración de la lista.
+
+El área visual incorpora la ambientación de la Fase 05C.2, sin reutilizar el hero.
+La aclaración sobre confirmación de opciones permanece visible.
+No se modificaron las fichas ni sus selectores y no se agregaron animaciones.
+
+## Fase 05C.2: imagen editorial de personalización
+
+Original conservado: `assets/images/marca/personalizacion-editorial.png`,
+1086 × 1448 px, 3.041.929 bytes. Versión utilizada:
+`assets/images/marca/personalizacion-editorial.webp`, mismas dimensiones,
+421.726 bytes (aproximadamente 86 % menos). Se exportó localmente con Chrome y
+calidad WebP 90 %, sin filtros, cambios de contenido ni dependencias instaladas.
+La compresión es con pérdida; se conserva el PNG para futuras exportaciones.
+
+Es una ambientación ilustrativa generada con IA, no una fotografía de un modelo
+comercial específico; no se usa en tarjetas ni fichas. Un elemento `img` proporciona
+texto alternativo, `loading="lazy"`, `decoding="async"` y dimensiones explícitas.
+CSS reserva el área y usa `object-fit: cover`: 4:3 en móvil con encuadre al 65 % vertical,
+y una imagen a la izquierda abarcando el título y pasos derechos en desktop.
+La numeración, textos y enlace al catálogo se conservan. No se superpone texto a la foto.
+
+Para reemplazarla, colocar primero el recurso autorizado en `assets/images/marca/`,
+actualizar el `src`, dimensiones y descripción alternativa en `index.html`, y revisar
+el encuadre y proporción en CSS. Conservar los originales y documentar el nuevo recurso.
+
+Pendientes: fotografías reales autorizadas de los productos y evaluación de una
+versión optimizada del hero.
+
+Se incorporaron los logos oficiales y la ambientación IA del hero; no se agregaron fotografías de productos,
+reseñas, precios, garantías, direcciones ni horarios.
 No se publicaron fotografías del catálogo mayorista. No se realizaron commits ni push.
 La carpeta superior ya contiene un repositorio Git; no se inicializó otro anidado.
 Las próximas fases requieren autorización del responsable del proyecto.

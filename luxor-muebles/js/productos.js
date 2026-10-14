@@ -8,6 +8,7 @@ export const productos = [
     medidasReferencia: { valores: [200, 160, 90], unidad: 'cm', alturaInformada: true },
     descripcion: 'Modelo Chicago de referencia para el catálogo provisional.',
     imagen: null,
+    imagenes: [],
     destacado: true,
   },
   {
@@ -17,6 +18,7 @@ export const productos = [
     medidasReferencia: { valores: [220, 120], unidad: 'cm', alturaInformada: false },
     descripcion: 'Modelo Nube de referencia para el catálogo provisional.',
     imagen: null,
+    imagenes: [],
     destacado: true,
   },
   {
@@ -26,6 +28,7 @@ export const productos = [
     medidasReferencia: { valores: [240, 180, 90], unidad: 'cm', alturaInformada: true },
     descripcion: 'Modelo Valentina de referencia para el catálogo provisional.',
     imagen: null,
+    imagenes: [],
     destacado: true,
   },
   {
@@ -35,6 +38,7 @@ export const productos = [
     medidasReferencia: { valores: [230, 160, 100], unidad: 'cm', alturaInformada: true },
     descripcion: 'Modelo Miami de referencia para el catálogo provisional.',
     imagen: null,
+    imagenes: [],
     destacado: true,
   },
   {
@@ -44,6 +48,7 @@ export const productos = [
     medidasReferencia: { valores: [200, 100], unidad: 'cm', alturaInformada: false },
     descripcion: 'Modelo Amelia de referencia para el catálogo provisional.',
     imagen: null,
+    imagenes: [],
     destacado: true,
   },
   {
@@ -53,6 +58,7 @@ export const productos = [
     medidasReferencia: { valores: [220, 160, 90], unidad: 'cm', alturaInformada: true },
     descripcion: 'Modelo Denver de referencia para el catálogo provisional.',
     imagen: null,
+    imagenes: [],
     destacado: true,
   },
 ];

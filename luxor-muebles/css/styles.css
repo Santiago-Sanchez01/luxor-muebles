@@ -12,9 +12,8 @@
   --font-heading: var(--font-body);
   --font-hero: Georgia, "Times New Roman", serif;
   --header-height: 5rem; /* JavaScript actualiza este valor con la altura real. */
-  --hero-image: none;
-  /* Foto pendiente: al agregar assets/images/hero-sillon.webp, sustituir
-     none por url("../assets/images/hero-sillon.webp"). */
+  /* Ambientación editorial generada con IA, exclusiva del hero. */
+  --hero-image: url("../assets/images/hero/hero-luxor-original.png");
   --space-1: 0.5rem;
   --space-2: 1rem;
   --space-3: 1.5rem;
@@ -168,10 +167,18 @@ main {
 }
 
 .brand {
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  max-width: 100%;
+  min-height: 48px;
   text-decoration: none;
+}
+
+.brand-logo {
+  width: 152px;
+  max-width: 100%;
+  height: auto;
 }
 
 .site-header a:hover {
@@ -298,19 +305,21 @@ main {
   margin-top: var(--space-2);
 }
 
-/* 5. Hero: la primera capa oscura conserva legibilidad al activar la foto */
+/* 5. Hero editorial: texto sobre carbón y ambientación inferior en móvil */
 main > .hero {
   display: flex;
   align-items: center;
   min-height: 0;
   padding-block: var(--space-5);
+  padding-bottom: calc(var(--space-5) + 12rem);
   background-color: var(--color-charcoal);
   background-image:
-    linear-gradient(90deg, rgb(23 20 18 / 98%) 0%, rgb(23 20 18 / 88%) 55%, rgb(23 20 18 / 50%) 100%),
+    linear-gradient(180deg, var(--color-charcoal) 0%, var(--color-charcoal) calc(100% - 12rem), rgb(23 20 18 / 15%) 100%),
     var(--hero-image),
     radial-gradient(ellipse at 85% 40%, var(--color-beige) 0%, #6d5c4b 35%, var(--color-charcoal) 75%);
-  background-size: cover;
-  background-position: center;
+  background-size: cover, auto 12rem, cover;
+  background-position: center, 75% bottom, center;
+  background-repeat: no-repeat;
   color: var(--color-warm-white);
 }
 
@@ -360,6 +369,12 @@ main > .hero {
   main > .hero {
     min-height: min(50rem, calc(100svh - var(--header-height)));
     padding-block: clamp(4rem, 10vw, 8rem);
+    background-image:
+      linear-gradient(90deg, rgb(23 20 18 / 92%) 0%, rgb(23 20 18 / 82%) 46%, rgb(23 20 18 / 45%) 65%, rgb(23 20 18 / 8%) 100%),
+      var(--hero-image),
+      radial-gradient(ellipse at 85% 40%, var(--color-beige) 0%, #6d5c4b 35%, var(--color-charcoal) 75%);
+    background-size: cover;
+    background-position: center, 65% center, center;
   }
 
   .hero-actions {
@@ -369,6 +384,10 @@ main > .hero {
 }
 
 @media (min-width: 64rem) {
+  .brand-logo {
+    width: 176px;
+  }
+
   .header-inner {
     flex-wrap: nowrap;
     gap: var(--space-3);
@@ -453,6 +472,26 @@ main > .hero {
   color: var(--color-charcoal);
   font-size: 0.875rem;
   text-align: center;
+}
+
+.product-media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: var(--color-warm-white);
+}
+
+.product-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+}
+
+.product-photo.is-loaded,
+.gallery-photo.is-loaded {
+  opacity: 1;
 }
 
 .product-content {
@@ -645,6 +684,21 @@ main > .hero {
   background: var(--color-beige);
 }
 
+.gallery-main {
+  aspect-ratio: 4 / 3;
+  background: var(--color-beige);
+}
+
+.gallery-photo {
+  opacity: 0;
+}
+
+.gallery-thumbnail img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+}
+
 .gallery-thumbnails {
   display: flex;
   flex-wrap: wrap;
@@ -795,7 +849,132 @@ main > .hero {
   gap: var(--space-2);
 }
 
-/* 11. Preferencia de movimiento reducido */
+/* 11. Personalizaci?n editorial de la homepage */
+.personalization-editorial {
+  display: grid;
+  grid-template-areas: "heading" "visual" "steps";
+  gap: var(--space-4);
+}
+
+.personalization-intro {
+  display: contents;
+}
+
+.personalization-heading {
+  grid-area: heading;
+  min-width: 0;
+  padding: clamp(1.5rem, 3vw, 3rem);
+  background: var(--color-charcoal);
+  color: var(--color-warm-white);
+}
+
+.personalization-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--color-beige);
+}
+
+.personalization-intro h2 {
+  margin-top: var(--space-3);
+  font-family: var(--font-hero);
+  font-weight: 400;
+  font-size: clamp(2rem, 3.6vw, 3.25rem);
+  line-height: 1.12;
+  text-wrap: balance;
+}
+
+.personalization-description {
+  margin-top: var(--space-3);
+  max-width: 35ch;
+}
+
+.personalization-visual {
+  grid-area: visual;
+  min-width: 0;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--color-charcoal);
+}
+
+.personalization-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 65%;
+}
+
+.personalization-copy {
+  grid-area: steps;
+  min-width: 0;
+  align-self: center;
+}
+
+.personalization-steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.personalization-steps li {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(1rem, 2vw, 2rem);
+  padding-block: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.personalization-number {
+  white-space: nowrap;
+  overflow-wrap: normal;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-accent);
+  font-family: var(--font-hero);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  line-height: 1;
+}
+
+.personalization-steps h3 {
+  font-family: var(--font-hero);
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+
+.personalization-steps p {
+  margin-top: var(--space-1);
+}
+
+.personalization-note {
+  margin-block: var(--space-3);
+  font-size: 0.875rem;
+}
+
+.personalization-copy > .button {
+  max-width: 100%;
+}
+
+@media (min-width: 64rem) {
+  .personalization-editorial {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas: "visual heading" "visual steps";
+    gap: var(--space-3) var(--space-5);
+  }
+
+  .personalization-visual {
+    aspect-ratio: auto;
+    position: relative;
+  }
+
+  .personalization-visual img {
+    position: absolute;
+    inset: 0;
+    object-position: center 60%;
+  }
+}
+
+/* 12. Preferencia de movimiento reducido */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

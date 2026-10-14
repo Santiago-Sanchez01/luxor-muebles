@@ -2,6 +2,7 @@ import { productos } from './productos.js';
 import { createProductCard } from './tarjetas.js';
 import { opciones, crearSeleccionInicial, generarConsulta } from './opciones.js';
 import { crearEnlaceWhatsApp } from './config.js';
+import { obtenerImagenes } from './imagenes.js';
 
 // Solo se admite un ID existente: nunca elegir otro producto por defecto.
 const id = new URLSearchParams(window.location.search).get('id');
@@ -16,11 +17,7 @@ const renderGallery = (item) => {
   const galleryStatus = document.querySelector('#galeria-estado');
   // Futuras fotos: imagenes: [{ src: './assets/images/archivo.webp', alt: 'Descripción real' }].
   // También se admite el campo imagen existente, con el nombre del modelo como alt.
-  const candidates = item.imagenes ?? (item.imagen ? [{ src: item.imagen, alt: `Modelo ${item.nombre}` }] : []);
-  let photos = candidates.filter((photo) => photo && typeof photo.src === 'string'
-    && /^(\.\/)?assets\/images\/[\w/-]+\.(webp|png|jpe?g|avif)$/i.test(photo.src)
-    && typeof photo.alt === 'string' && photo.alt.trim());
-  photos = photos.filter((photo, index) => photos.findIndex((other) => other.src === photo.src) === index);
+  let photos = obtenerImagenes(item);
   let selected = 0;
 
   const show = () => {
@@ -39,6 +36,11 @@ const renderGallery = (item) => {
     const photo = photos[selected];
     const image = document.createElement('img');
     image.alt = photo.alt;
+    image.width = 1200;
+    image.height = 900;
+    image.decoding = 'async';
+    image.className = 'gallery-photo';
+    image.addEventListener('load', () => image.classList.add('is-loaded'), { once: true });
     image.addEventListener('error', () => {
       photos = photos.filter((entry) => entry !== photo);
       show();
@@ -53,9 +55,16 @@ const renderGallery = (item) => {
       button.setAttribute('aria-label', `Ver fotografía ${index + 1}: ${entry.alt}`);
       button.setAttribute('aria-pressed', String(index === selected));
       const preview = document.createElement('img');
+      preview.loading = 'lazy';
+      preview.decoding = 'async';
+      preview.width = 120;
+      preview.height = 90;
       preview.src = entry.src;
       preview.alt = '';
-      preview.addEventListener('error', () => preview.remove(), { once: true });
+      preview.addEventListener('error', () => {
+        photos = photos.filter((photo) => photo !== entry);
+        show();
+      }, { once: true });
       button.append(preview);
       const label = document.createElement('span');
       label.textContent = String(index + 1);
