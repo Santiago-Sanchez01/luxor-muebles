@@ -1,0 +1,423 @@
+/* 1. Variables y base global */
+:root {
+  --color-charcoal: #171412;
+  --color-warm-white: #f7f4ef;
+  --color-accent: #c91f28;
+  --color-beige: #d5c4af;
+  --color-warm-gray: #aaa097;
+  --color-accent-hover: #a81820;
+  --color-accent-on-dark: #ff5962;
+  --color-border: #d8d2ca;
+  --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-heading: var(--font-body);
+  --font-hero: Georgia, "Times New Roman", serif;
+  --header-height: 5rem; /* JavaScript actualiza este valor con la altura real. */
+  --hero-image: none;
+  /* Foto pendiente: al agregar assets/images/hero-sillon.webp, sustituir
+     none por url("../assets/images/hero-sillon.webp"). */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-5: 3rem;
+  --content-width: 72rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+p,
+ul,
+ol {
+  margin: 0;
+}
+
+body {
+  min-width: 0;
+  background: var(--color-warm-white);
+  color: var(--color-charcoal);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  overflow-wrap: break-word;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  color: var(--color-accent);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+}
+
+h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+.container {
+  width: min(100% - var(--space-4), var(--content-width));
+  margin-inline: auto;
+}
+
+/* 2. Secciones provisionales y accesibilidad */
+main > section {
+  padding-block: var(--space-4);
+  scroll-margin-top: calc(var(--header-height) + var(--space-2));
+}
+
+main {
+  scroll-margin-top: calc(var(--header-height) + var(--space-2));
+}
+
+.site-footer {
+  padding-block: var(--space-3);
+  border-top: 1px solid var(--color-border);
+}
+
+.skip-link {
+  position: fixed;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: 30;
+  padding: var(--space-1) var(--space-2);
+  background: var(--color-warm-white);
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+@media (min-width: 48rem) {
+  main > section {
+    padding-block: var(--space-5);
+  }
+}
+
+/* 3. Header y navegación: móvil primero */
+[hidden] {
+  display: none !important;
+}
+
+.site-header {
+  position: relative;
+  top: 0;
+  z-index: 20;
+  background: var(--color-charcoal);
+  color: var(--color-warm-white);
+  border-bottom: 1px solid rgb(247 244 239 / 12%);
+  transition: box-shadow 180ms ease;
+}
+
+.site-header.menu-ready {
+  position: sticky;
+}
+
+.site-header.is-scrolled {
+  box-shadow: 0 8px 24px rgb(0 0 0 / 25%);
+}
+
+.header-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding-block: var(--space-2);
+  /* La medida real incluye el borde del header: no reutilizarla aquí
+     para evitar que cada medición aumente la altura de nuevo. */
+  min-height: 5rem;
+}
+
+.brand {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+}
+
+.site-header a:hover {
+  color: var(--color-beige);
+}
+
+.site-header :focus-visible,
+.hero :focus-visible {
+  outline-color: var(--color-warm-white);
+}
+
+.menu-toggle {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 12px;
+  background: transparent;
+  color: inherit;
+  border: 1px solid rgb(247 244 239 / 35%);
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.menu-toggle-icon {
+  display: grid;
+  gap: 5px;
+  width: 22px;
+}
+
+.menu-toggle-icon span {
+  height: 2px;
+  background: currentColor;
+  transition: transform 180ms ease, opacity 180ms ease;
+}
+
+.menu-toggle[aria-expanded="true"] .menu-toggle-icon span:first-child {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.menu-toggle[aria-expanded="true"] .menu-toggle-icon span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle[aria-expanded="true"] .menu-toggle-icon span:last-child {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.site-nav {
+  width: 100%;
+  padding-bottom: var(--space-2);
+}
+
+.nav-list {
+  display: grid;
+  list-style: none;
+  padding: 0;
+}
+
+.nav-list a {
+  display: block;
+  padding: 12px 0;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.site-header.menu-ready .site-nav {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: calc(100dvh - var(--header-height));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--space-2);
+  background: var(--color-charcoal);
+  border-bottom: 1px solid rgb(247 244 239 / 20%);
+  box-shadow: 0 16px 24px rgb(0 0 0 / 25%);
+}
+
+/* 4. Botones compartidos por header y hero */
+.button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 48px;
+  padding: 12px 20px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
+}
+
+.button-primary,
+.header-whatsapp {
+  background: var(--color-accent);
+  color: var(--color-warm-white);
+}
+
+.button-primary:hover,
+.site-header .header-whatsapp:hover {
+  background: var(--color-accent-hover);
+  color: var(--color-warm-white);
+}
+
+.button-secondary {
+  background: rgb(23 20 18 / 45%);
+  border-color: rgb(247 244 239 / 65%);
+  color: var(--color-warm-white);
+}
+
+.button-secondary:hover {
+  background: var(--color-warm-white);
+  color: var(--color-charcoal);
+}
+
+.header-whatsapp {
+  margin-top: var(--space-2);
+}
+
+/* 5. Hero: la primera capa oscura conserva legibilidad al activar la foto */
+main > .hero {
+  display: flex;
+  align-items: center;
+  min-height: 0;
+  padding-block: var(--space-5);
+  background-color: var(--color-charcoal);
+  background-image:
+    linear-gradient(90deg, rgb(23 20 18 / 98%) 0%, rgb(23 20 18 / 88%) 55%, rgb(23 20 18 / 50%) 100%),
+    var(--hero-image),
+    radial-gradient(ellipse at 85% 40%, var(--color-beige) 0%, #6d5c4b 35%, var(--color-charcoal) 75%);
+  background-size: cover;
+  background-position: center;
+  color: var(--color-warm-white);
+}
+
+.hero-content {
+  animation: hero-appear 600ms ease-out both;
+}
+
+.hero h1 {
+  max-width: 13ch;
+  font-family: var(--font-hero);
+  font-weight: 400;
+  font-size: clamp(2.65rem, 5.7vw, 5.2rem);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.hero h1 span {
+  display: block;
+  /* Variante roja más luminosa para el contraste del texto sobre carbón. */
+  color: var(--color-accent-on-dark);
+}
+
+.hero-description {
+  max-width: 43ch;
+  margin-top: var(--space-3);
+  font-size: clamp(1rem, 1.4vw, 1.125rem);
+  color: var(--color-warm-white);
+}
+
+.hero-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  max-width: 32rem;
+}
+
+@keyframes hero-appear {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 6. Adaptaciones de header y hero */
+@media (min-width: 40rem) {
+  main > .hero {
+    min-height: min(50rem, calc(100svh - var(--header-height)));
+    padding-block: clamp(4rem, 10vw, 8rem);
+  }
+
+  .hero-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+@media (min-width: 64rem) {
+  .header-inner {
+    flex-wrap: nowrap;
+    gap: var(--space-3);
+  }
+
+  .menu-toggle {
+    display: none;
+  }
+
+  .site-nav,
+  .site-header.menu-ready .site-nav {
+    position: static;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 1;
+    flex-wrap: wrap;
+    min-width: 0;
+    gap: var(--space-3);
+    width: auto;
+    max-height: none;
+    padding: 0;
+    overflow: visible;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .nav-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .nav-list a {
+    white-space: nowrap;
+  }
+
+  .header-whatsapp {
+    margin: 0;
+  }
+}
+
+/* 7. Preferencia de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
