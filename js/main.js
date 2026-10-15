@@ -1,6 +1,9 @@
 import { productos } from './productos.js';
 import { createProductCard } from './tarjetas.js';
 import { crearEnlaceWhatsApp, consultaGeneral } from './config.js';
+import { opiniones, renderOpiniones } from './opiniones.js';
+
+renderOpiniones(opiniones);
 
 document.querySelectorAll('[data-whatsapp]').forEach((link) => {
   link.href = crearEnlaceWhatsApp(consultaGeneral);

@@ -36,6 +36,7 @@ luxor-muebles/
 │   ├── config.js
 │   ├── tarjetas.js
 │   ├── imagenes.js
+│   ├── opiniones.js
 │   └── productos.js
 └── assets/
     ├── images/
@@ -101,7 +102,9 @@ y el header se desplaza con la página.
 
 El hero móvil utiliza la altura necesaria para su contenido y espaciado, evitando
 rellenar la pantalla con espacio vacío. Las siete secciones siguen presentes; Categorías,
-Opiniones, Nosotros y Contacto conservan su estructura provisional. Personalización
+Contacto conserva su estructura provisional. Opiniones incorpora la sección editorial
+de la Fase 05E.1. Nosotros incorpora la
+presentación editorial de la Fase 05D.1. Personalización
 incorpora la presentación editorial de la Fase 05C.
 El catálogo inicial de la Fase 03A conserva el destino `#modelos`. El footer
 definitivo no está desarrollado.
@@ -414,6 +417,70 @@ No se publicaron fotografías del catálogo mayorista. No se realizaron commits 
 La raíz de la aplicación coincide con la del repositorio Git; no se creó otro repositorio.
 Las próximas fases requieren autorización del responsable del proyecto.
 
+
+## Fase 05D.1: Nosotros
+
+La sección existente `#nosotros` incorpora la etiqueta “CONOCÉ LUXOR”, el título
+“Más que sillones, espacios para vivir.” y los textos aprobados sobre acompañamiento
+y preferencias. “Conocer nuestros modelos” lleva a `#modelos`. No se agregaron años
+de trayectoria, testimonios, dirección ni afirmaciones de fabricación propia.
+
+La composición inicial se refinó en la Fase 05D.2: fondo y contenido forman un único
+hero editorial secundario dentro del ancho del sitio, con textos alineados a la izquierda.
+No se duplica el hero principal ni se utiliza una altura de pantalla completa.
+
+Desde la Fase 05D.3, `--about-image` en `.about-content` utiliza la imagen editorial
+local de Nosotros con un degradado oscuro. En móvil se refuerza el degradado y se
+encuadra al 65 % horizontal; el bloque crece según el texto, sin altura mínima visual.
+El mínimo de desktop es 32rem, no una altura fija: también puede crecer con texto ampliado.
+Reutiliza la paleta, tipografía y foco visible, sin animaciones ni cambios funcionales.
+
+## Fase 05D.3: fotografía del hero secundario
+
+Recurso: `assets/images/marca/hero-secundario.png`. Formato PNG verificado por su firma,
+1672 × 941 px, 2.419.735 bytes (aproximadamente 2,42 MB). Ya estaba en la carpeta final;
+se conserva intacto, sin copias ni conversiones.
+
+Es una ambientación ilustrativa generada con IA: no representa necesariamente el
+showroom ni un producto comercial real de Luxor. Se usa únicamente como fondo
+decorativo de Nosotros, sin reutilizar el hero principal o Personalización.
+
+En desktop se utiliza `background-size: cover` y encuadre derecho, con oscuridad
+concentrada detrás del texto izquierdo y detalles más visibles a la derecha. En móvil,
+el encuadre al 65 % y el degradado reforzado priorizan la lectura. No hay altura fija,
+animaciones nuevas ni cambios en los textos o CTA. El fondo no provoca saltos al cargar.
+
+Para reemplazarla, incorporar primero un recurso aprobado en `assets/images/marca/`,
+actualizar `--about-image` en CSS y revisar el encuadre, contraste y texto ampliado.
+Se recomienda evaluar un WebP optimizado conservando este original; no se generó en
+esta fase. La trayectoria, dirección y fabricación requieren confirmación comercial
+antes de incorporarse al contenido.
+
+## Fase 05E.1: recomendaciones de clientes
+
+`#opiniones` conserva su ID y presenta un encabezado editorial sobre fondo cálido.
+`js/opiniones.js` exporta `opiniones = []`: todavía no hay testimonios aprobados
+publicados. Mientras esté vacío, se muestra una invitación a consultar las recomendaciones
+en el perfil de Facebook proporcionado, también visible sin JavaScript. No se publican
+estrellas, porcentajes, cantidades, nombres, fotos ni opiniones ficticias.
+
+Para agregar un testimonio, verificar primero su autenticidad, el nombre autorizado,
+el texto y la aprobación comercial. Añadir al array un objeto con `id` único, `nombre`,
+`texto`, `fuente: 'Facebook'` y `url` pública opcional. El esquema está documentado
+en el módulo; no hay ejemplos ficticios cargados. No copiar automáticamente desde Facebook.
+
+`renderOpiniones` se invoca desde `main.js` y crea tarjetas con `createElement` y
+`textContent`, usando `figure`, `blockquote` y `figcaption`. Solo permite enlaces HTTPS
+de Facebook y agrega `target="_blank"` con `rel="noopener noreferrer"`. Sin URL válida
+se muestra la atribución sin enlace. La validación técnica no sustituye la aprobación
+de autenticidad o autorización del nombre.
+
+La grilla tiene una columna en móvil, dos en tablet y tres desde 1024 px. No hay
+imágenes ni carruseles. Los datos temporales de pruebas se introducen únicamente
+en memoria durante la verificación, nunca se guardan como opiniones reales.
+Pendientes: selección de recomendaciones auténticas, autorización del contenido y
+aprobación comercial. No se verificaron cifras actuales de recomendaciones ni se
+implementaron conexiones a Facebook, credenciales o tokens.
 
 ## Documentación de la raíz anterior
 
