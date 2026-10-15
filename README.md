@@ -522,6 +522,64 @@ No se cambió JavaScript ni la configuración comercial: WhatsApp sigue utilizan
 `crearEnlaceWhatsApp(consultaGeneral)` mediante `data-whatsapp`. No se duplicaron
 destinos ni números y no se incorporaron dependencias o recursos remotos.
 
+## Fase 05G.1: entradas cinematográficas
+
+`js/animaciones.js` comparte `iniciarAnimaciones` entre homepage y ficha. El contenido
+es visible por defecto; solo después de crear `IntersectionObserver` se aplica un estado
+pendiente a tarjetas, pasos, texto de Nosotros, título/CTA de Contacto e información
+de la ficha. Al entrar en pantalla, se deja de observar y se anima una sola vez con
+Web Animations API: opacidad y 18 px verticales durante 620 ms. El escalonado es de
+60 ms y está limitado a 120 ms para no acumular esperas en listas largas.
+
+Un `MutationObserver` limitado a las listas detecta tarjetas nuevas tras buscar o
+filtrar, así como opiniones aprobadas y relacionados. Los nodos retirados se liberan.
+No se calculan posiciones en listeners de scroll ni se animan dimensiones, imágenes,
+header sticky o footer. Se conserva la aparición inicial existente del hero sin duplicarla.
+
+Sin JavaScript, IntersectionObserver o Web Animations API, no se oculta contenido.
+Con movimiento reducido no se preparan animaciones; si la preferencia cambia durante
+la visita, se cancelan y todo se revela inmediatamente. Foco y navegación por anclas
+revelan el destino sin espera, también al acceder con un fragmento inicial. Los elementos
+ya revelados no vuelven a ocultarse al subir. No se agregaron librerías ni efectos de zoom.
+
+Pruebas de esta fase: revisar los cuatro anchos y texto al 200 %, entradas por scroll,
+tarjetas tras búsqueda y filtros, foco en enlaces pendientes, anclas, movimiento reducido
+y alternativas sin JavaScript u observador. Los testimonios reales siguen pendientes
+de aprobación; el renderizador es compatible con futuras tarjetas sin datos ficticios.
+
+## Fase 05H.1: auditoría y optimización de imágenes
+
+Se conservaron todos los PNG y logos originales. Chrome local exportó WebP con
+calidad 90 %, sin redimensionar, recortar, aplicar filtros o instalar dependencias.
+La compresión es con pérdida y puede introducir diferencias mínimas respecto al PNG.
+
+| Recurso | Dimensiones | Original PNG (bytes) | WebP (bytes) | Reducción |
+| --- | --- | ---: | ---: | ---: |
+| `hero/hero-luxor-original` | 1942 × 809 | 2.356.247 | 268.458 | 88,61 % |
+| `marca/hero-secundario` | 1672 × 941 | 2.419.735 | 278.792 | 88,48 % |
+| `marca/personalizacion-editorial` (optimizado anteriormente) | 1086 × 1448 | 3.041.929 | 421.726 | 86,14 % |
+
+Todas las rutas de la tabla están dentro de `assets/images/`. Se actualizaron únicamente
+`--hero-image` y `--about-image` en CSS para usar los nuevos WebP. Las posiciones,
+degradados, tamaños y animaciones permanecen intactos. Las referencias PNG anteriores
+en esta documentación describen los originales conservados; el recurso activo ahora es WebP.
+
+El logo oscuro utilizado mide 2118 × 689 y pesa 385.198 bytes; el claro disponible
+mide 2118 × 689 y pesa 564.480 bytes. No se modificaron ni se incorporó el claro a la carga.
+El PNG de Personalización se conserva como original y no se descarga en la página.
+Los productos no tienen fotos asignadas y siguen usando placeholders.
+
+Personalización, tarjetas, miniaturas y logo del footer ya utilizan lazy loading.
+El hero principal y el logo superior se mantienen sin carga diferida para no retrasar
+la primera pantalla. Los fondos CSS no admiten el atributo `loading`; Nosotros sigue
+su carga nativa CSS para evitar cambiar estructura o lógica de revelado en esta fase.
+No se cargan los originales PNG además de los WebP ni se agregaron efectos a las fotos.
+
+Verificación: servir tanto desde `/` como desde `/luxor-muebles/`, revisar carga y
+dimensiones, cuatro anchos, encuadres, errores HTTP y consola. Pendientes: fotografías
+reales autorizadas de los productos y, si las mediciones futuras lo justifican, variantes
+de resolución y una estrategia específica de carga diferida para fondos fuera de pantalla.
+
 ## Documentación de la raíz anterior
 
 El README original de la raíz contenía:

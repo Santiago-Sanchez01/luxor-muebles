@@ -2,6 +2,7 @@ import { productos } from './productos.js';
 import { createProductCard } from './tarjetas.js';
 import { crearEnlaceWhatsApp, consultaGeneral } from './config.js';
 import { opiniones, renderOpiniones } from './opiniones.js';
+import { iniciarAnimaciones } from './animaciones.js';
 
 renderOpiniones(opiniones);
 
@@ -184,3 +185,5 @@ if (featuredTrack) {
   }
   updateCarousel();
 }
+
+iniciarAnimaciones();

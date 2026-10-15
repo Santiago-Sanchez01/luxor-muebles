@@ -3,6 +3,7 @@ import { createProductCard } from './tarjetas.js';
 import { opciones, crearSeleccionInicial, generarConsulta } from './opciones.js';
 import { crearEnlaceWhatsApp } from './config.js';
 import { obtenerImagenes } from './imagenes.js';
+import { iniciarAnimaciones } from './animaciones.js';
 
 // Solo se admite un ID existente: nunca elegir otro producto por defecto.
 const id = new URLSearchParams(window.location.search).get('id');
@@ -204,3 +205,5 @@ if (!producto) {
   document.querySelector('#lista-relacionados').replaceChildren(...related.map(createProductCard));
   document.querySelector('#producto-detalle').hidden = false;
 }
+
+iniciarAnimaciones();

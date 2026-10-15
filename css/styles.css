@@ -14,7 +14,7 @@
   --font-hero: Georgia, "Times New Roman", serif;
   --header-height: 5rem; /* JavaScript actualiza este valor con la altura real. */
   /* Ambientación editorial generada con IA, exclusiva del hero. */
-  --hero-image: url("../assets/images/hero/hero-luxor-original.png");
+  --hero-image: url("../assets/images/hero/hero-luxor-original.webp");
   --space-1: 0.5rem;
   --space-2: 1rem;
   --space-3: 1.5rem;
@@ -978,7 +978,7 @@ main > .hero {
 /* 12. Nosotros: hero editorial secundario, sin altura fija */
 .about-content {
   /* Ambientación ilustrativa IA, exclusiva de Nosotros. */
-  --about-image: url("../assets/images/marca/hero-secundario.png");
+  --about-image: url("../assets/images/marca/hero-secundario.webp");
   display: grid;
   gap: var(--space-3);
   padding: clamp(1.5rem, 4vw, 3.5rem);
@@ -1366,8 +1366,24 @@ main > .hero {
   }
 }
 
-/* 15. Preferencia de movimiento reducido */
+/* 15. Entrada progresiva: esta clase solo se aplica tras configurar el observador */
+.reveal-pending {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+.reveal-pending:focus-within {
+  opacity: 1;
+  transform: none;
+}
+
+/* 16. Preferencia de movimiento reducido */
 @media (prefers-reduced-motion: reduce) {
+  .reveal-pending {
+    opacity: 1;
+    transform: none;
+  }
+
   *,
   *::before,
   *::after {
