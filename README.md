@@ -102,12 +102,12 @@ y el header se desplaza con la página.
 
 El hero móvil utiliza la altura necesaria para su contenido y espaciado, evitando
 rellenar la pantalla con espacio vacío. Las siete secciones siguen presentes; Categorías,
-Contacto conserva su estructura provisional. Opiniones incorpora la sección editorial
+Contacto y el footer incorporan la Fase 05F.1. Opiniones incorpora la sección editorial
 de la Fase 05E.1. Nosotros incorpora la
 presentación editorial de la Fase 05D.1. Personalización
 incorpora la presentación editorial de la Fase 05C.
-El catálogo inicial de la Fase 03A conserva el destino `#modelos`. El footer
-definitivo no está desarrollado.
+El catálogo inicial de la Fase 03A conserva el destino `#modelos`. El footer de la
+homepage está desarrollado y refinado en la Fase 05F.2.
 
 Fase 03A implementada: seis tarjetas generadas desde datos locales, placeholders CSS,
 grilla de una, dos o tres columnas y botones “Ver modelo · Próximamente” deshabilitados.
@@ -481,6 +481,46 @@ en memoria durante la verificación, nunca se guardan como opiniones reales.
 Pendientes: selección de recomendaciones auténticas, autorización del contenido y
 aprobación comercial. No se verificaron cifras actuales de recomendaciones ni se
 implementaron conexiones a Facebook, credenciales o tokens.
+
+## Fase 05F.1: Contacto y footer
+
+La sección existente `#contacto` presenta el título aprobado, una consulta principal
+por WhatsApp y bloques de atención personalizada y entregas, sin formulario ni backend.
+Usa fondo carbón, tipografía editorial y separadores discretos. En móvil los bloques
+se apilan y el CTA ocupa el ancho disponible; la altura crece según el contenido.
+
+El footer de la homepage incluye el logo oficial para fondo oscuro, las seis anclas
+de navegación, Facebook y WhatsApp. `main.js` completa el año con `new Date().getFullYear()`
+del navegador, sin servicios externos. Se incluye la aclaración sobre imágenes IA.
+Los estilos se limitan a la homepage; no se cambió el footer de las fichas.
+
+Los nuevos enlaces WhatsApp usan `data-whatsapp`: el manejador de inicialización
+existente reutiliza `crearEnlaceWhatsApp(consultaGeneral)` y el número centralizado
+en `js/config.js`. No se duplicó el número ni se agregaron funciones de envío.
+Los enlaces externos abren otra pestaña con `noopener noreferrer` y nombre accesible.
+Sin JavaScript permanecen el contenido, logo, navegación, Facebook y la aclaración IA;
+WhatsApp queda oculto y Contacto ofrece Facebook como alternativa. El año no se
+muestra hasta poder calcularlo, para evitar una fecha estática obsoleta.
+
+Pendientes comerciales: dirección física, correo, horarios, cobertura, costos y plazos
+de entrega. No se publican hasta confirmarlos. Las pruebas de WhatsApp verifican el
+destino y texto del enlace sin enviar mensajes reales.
+
+## Fase 05F.2: refinamiento de Contacto y footer
+
+Contacto conserva sus textos y lógica con dos columnas equilibradas en desktop,
+espaciado ampliado y CTA de 56 px de alto mínimo, con ícono SVG de mensaje decorativo
+y flecha externa. En móvil se apila y el CTA utiliza el ancho disponible.
+
+El footer se organiza en identidad (logo y descripción editorial), navegación y redes
+y contacto. La variable `--color-footer` diferencia sutilmente su carbón del de Contacto.
+En móvil las áreas siguen ese orden en una columna; en tablet se distribuyen en dos
+y en desktop en tres. La franja inferior conserva año dinámico, marca y el aviso IA.
+Se mantienen los enlaces subrayados, foco claro, áreas táctiles y movimiento reducido.
+
+No se cambió JavaScript ni la configuración comercial: WhatsApp sigue utilizando
+`crearEnlaceWhatsApp(consultaGeneral)` mediante `data-whatsapp`. No se duplicaron
+destinos ni números y no se incorporaron dependencias o recursos remotos.
 
 ## Documentación de la raíz anterior
 

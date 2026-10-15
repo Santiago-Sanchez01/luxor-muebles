@@ -5,6 +5,12 @@ import { opiniones, renderOpiniones } from './opiniones.js';
 
 renderOpiniones(opiniones);
 
+const footerYear = document.querySelector('#footer-year');
+if (footerYear) {
+  footerYear.textContent = ` · ${new Date().getFullYear()}`;
+  footerYear.hidden = false;
+}
+
 document.querySelectorAll('[data-whatsapp]').forEach((link) => {
   link.href = crearEnlaceWhatsApp(consultaGeneral);
   link.hidden = false;

@@ -1,6 +1,7 @@
 /* 1. Variables y base global */
 :root {
   --color-charcoal: #171412;
+  --color-footer: #12100f;
   --color-warm-white: #f7f4ef;
   --color-accent: #c91f28;
   --color-beige: #d5c4af;
@@ -1164,7 +1165,208 @@ main > .hero {
   }
 }
 
-/* 14. Preferencia de movimiento reducido */
+/* 14. Contacto y footer de la homepage */
+.contact-panel {
+  display: grid;
+  gap: var(--space-5);
+  padding: clamp(1.5rem, 4.5vw, 4rem);
+  color: var(--color-warm-white);
+  background: var(--color-charcoal);
+}
+
+.contact-heading,
+.contact-conversation {
+  min-width: 0;
+}
+
+.contact-label {
+  color: var(--color-beige);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+.contact-heading h2 {
+  max-width: 21ch;
+  margin-top: var(--space-3);
+  font-family: var(--font-hero);
+  font-weight: 400;
+  font-size: clamp(2rem, 3.5vw, 3.25rem);
+  line-height: 1.12;
+  text-wrap: balance;
+}
+
+.contact-conversation {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: var(--space-4);
+  align-self: center;
+}
+
+.contact-conversation p {
+  max-width: 38ch;
+}
+
+.contact-conversation .button {
+  width: 100%;
+  max-width: 100%;
+}
+
+.contact-cta {
+  gap: 0.75rem;
+  min-height: 56px;
+  padding: var(--space-2) var(--space-3);
+}
+
+.contact-cta > span:not([aria-hidden]) {
+  min-width: 0;
+}
+
+.contact-message-icon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.contact-details {
+  display: grid;
+  gap: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid rgb(213 196 175 / 30%);
+}
+
+.contact-details > div {
+  min-width: 0;
+}
+
+.contact-details h3 {
+  margin-bottom: var(--space-1);
+  color: var(--color-beige);
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
+}
+
+.contact-panel :focus-visible,
+.footer-premium :focus-visible {
+  outline-color: var(--color-warm-white);
+}
+
+.footer-premium {
+  padding-block: var(--space-5) var(--space-3);
+  color: var(--color-warm-white);
+  background: var(--color-footer);
+  border-color: rgb(213 196 175 / 30%);
+}
+
+.footer-main {
+  display: grid;
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.footer-identity p {
+  max-width: 25ch;
+  margin-top: var(--space-2);
+  color: var(--color-beige);
+  font-size: 0.9375rem;
+}
+
+.footer-heading {
+  margin-bottom: var(--space-1);
+  color: var(--color-beige);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.footer-main > * {
+  min-width: 0;
+}
+
+.footer-links {
+  display: grid;
+  padding: 0;
+  list-style: none;
+}
+
+.footer-links a,
+.footer-social a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  text-underline-offset: 0.2em;
+}
+
+.footer-social {
+  display: grid;
+  justify-items: start;
+}
+
+.footer-premium a:hover {
+  color: var(--color-beige);
+  text-decoration-thickness: 2px;
+}
+
+.footer-bottom {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px solid rgb(213 196 175 / 30%);
+  font-size: 0.875rem;
+}
+
+.footer-disclaimer {
+  max-width: 78ch;
+  color: var(--color-beige);
+}
+
+@media (min-width: 48rem) {
+  .contact-details {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .contact-conversation {
+    align-items: flex-start;
+  }
+
+  .contact-conversation .button {
+    width: auto;
+  }
+
+  .footer-main {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footer-links {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--space-2);
+  }
+}
+
+@media (min-width: 64rem) {
+  .contact-panel {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--space-5);
+  }
+
+  .contact-details {
+    grid-column: 1 / -1;
+  }
+
+  .footer-main {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: var(--space-5);
+  }
+
+  .footer-bottom {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    gap: var(--space-4);
+  }
+}
+
+/* 15. Preferencia de movimiento reducido */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
