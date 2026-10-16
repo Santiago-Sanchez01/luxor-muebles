@@ -1,4 +1,5 @@
 import { obtenerImagenes } from './imagenes.js';
+import { formatearMedidas } from './medidas.js';
 
 export const createProductCard = (producto) => {
   const item = document.createElement('li');
@@ -49,10 +50,9 @@ export const createProductCard = (producto) => {
   content.append(category, name, description);
 
   if (producto.medidasReferencia) {
-    const { valores, unidad, alturaInformada } = producto.medidasReferencia;
     const measurements = document.createElement('p');
     measurements.className = 'product-measurements';
-    measurements.textContent = `Medidas de referencia (provisionales): ${valores.join(' × ')} ${unidad}.${alturaInformada ? '' : ' Altura no informada.'}`;
+    measurements.textContent = `Medidas de referencia (provisionales): ${formatearMedidas(producto.medidasReferencia)}`;
     content.append(measurements);
   }
 

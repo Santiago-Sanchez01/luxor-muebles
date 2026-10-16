@@ -4,6 +4,7 @@ import { opciones, crearSeleccionInicial, generarConsulta } from './opciones.js'
 import { crearEnlaceWhatsApp } from './config.js';
 import { obtenerImagenes } from './imagenes.js';
 import { iniciarAnimaciones } from './animaciones.js';
+import { formatearMedidas } from './medidas.js';
 
 // Solo se admite un ID existente: nunca elegir otro producto por defecto.
 const id = new URLSearchParams(window.location.search).get('id');
@@ -194,10 +195,7 @@ if (!producto) {
   status.hidden = true;
   document.querySelector('#producto-categoria').textContent = producto.categoria;
   document.querySelector('#producto-descripcion').textContent = producto.descripcion;
-  const measures = producto.medidasReferencia;
-  document.querySelector('#producto-medidas').textContent = measures
-    ? `${measures.valores.join(' × ')} ${measures.unidad}.${measures.alturaInformada ? '' : ' Altura no informada.'}`
-    : 'Medidas no informadas.';
+  document.querySelector('#producto-medidas').textContent = formatearMedidas(producto.medidasReferencia);
   renderGallery(producto);
   initializePreferences(producto);
   const related = productos.filter((item) => item.id !== producto.id && item.categoria === producto.categoria).slice(0, 3);

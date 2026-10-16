@@ -117,6 +117,19 @@ luxor-muebles/
 
 ## Estado del proyecto
 
+El catálogo contiene ocho modelos: Chicago, Nube, Valentina, Denver, Nube Max,
+Chicago Premium, Naza y Madrid. Los IDs anteriores `amelia` y `miami` muestran
+“Producto no encontrado”; no redirigen a otros modelos.
+
+Las fotografías se asocian desde `imagenes` en `js/productos.js`, conservando sus
+rutas locales, incluidos los espacios de `nube max/` y `chicago premium/`.
+Su procedencia está marcada como `tipo: 'no-verificada'` hasta la confirmación
+del responsable. Naza utiliza `assets/images/productos/naza/naza-1.jpeg`.
+
+`js/medidas.js` comparte el formato entre tarjetas y fichas. Naza tiene dos variantes
+principales (1,80 × 0,90 m o 2 × 0,90 m) y camastro de 0,65 × 0,65 m independiente;
+no se suman dimensiones. Todas las medidas y opciones siguen sujetas a confirmación.
+
 El sitio cuenta con las principales funcionalidades del MVP implementadas.
 
 Antes de su lanzamiento comercial definitivo, quedan pendientes:
