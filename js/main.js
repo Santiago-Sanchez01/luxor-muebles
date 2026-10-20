@@ -1,21 +1,12 @@
 import { productos } from './productos.js';
 import { createProductCard } from './tarjetas.js';
-import { crearEnlaceWhatsApp, consultaGeneral } from './config.js';
+import { iniciarEnlacesComunes } from './comunes.js';
 import { opiniones, renderOpiniones } from './opiniones.js';
 import { iniciarAnimaciones } from './animaciones.js';
 
 renderOpiniones(opiniones);
 
-const footerYear = document.querySelector('#footer-year');
-if (footerYear) {
-  footerYear.textContent = ` · ${new Date().getFullYear()}`;
-  footerYear.hidden = false;
-}
-
-document.querySelectorAll('[data-whatsapp]').forEach((link) => {
-  link.href = crearEnlaceWhatsApp(consultaGeneral);
-  link.hidden = false;
-});
+iniciarEnlacesComunes();
 
 // Navegación progresiva: sin JavaScript los enlaces permanecen visibles.
 const header = document.querySelector('.site-header');

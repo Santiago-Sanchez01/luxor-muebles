@@ -14,7 +14,7 @@ export const productos = [
       "unidad": "cm",
       "alturaInformada": true
     },
-    "descripcion": "Modelo Chicago de referencia para el catálogo provisional.",
+    "descripcion": "Consultá las opciones de tapizado, color y terminaciones.",
     "imagen": null,
     "imagenes": [
       {
@@ -37,7 +37,7 @@ export const productos = [
       "unidad": "cm",
       "alturaInformada": false
     },
-    "descripcion": "Modelo Nube de referencia para el catálogo provisional.",
+    "descripcion": "Consultá las opciones de tapizado, color y terminaciones.",
     "imagen": null,
     "imagenes": [
       {
@@ -61,7 +61,7 @@ export const productos = [
       "unidad": "cm",
       "alturaInformada": true
     },
-    "descripcion": "Modelo Valentina de referencia para el catálogo provisional.",
+    "descripcion": "Consultá las opciones de tapizado, color y terminaciones.",
     "imagen": null,
     "imagenes": [
       {
@@ -85,7 +85,7 @@ export const productos = [
       "unidad": "cm",
       "alturaInformada": true
     },
-    "descripcion": "Modelo Denver de referencia para el catálogo provisional.",
+    "descripcion": "Consultá las opciones de tapizado, color y terminaciones.",
     "imagen": null,
     "imagenes": [
       {
@@ -108,7 +108,7 @@ export const productos = [
       "unidad": "m",
       "alturaInformada": false
     },
-    "descripcion": "Modelo Nube Max con medidas de referencia de 3 × 2,20 m.",
+    "descripcion": "Consultá las opciones de tapizado, color y terminaciones.",
     "imagen": null,
     "imagenes": [
       {
@@ -131,7 +131,7 @@ export const productos = [
       "unidad": "m",
       "alturaInformada": false
     },
-    "descripcion": "Modelo Chicago Premium con medidas de referencia de 2 × 1,60 m.",
+    "descripcion": "Consultá las opciones de tapizado, color y terminaciones.",
     "imagen": null,
     "imagenes": [
       {
@@ -167,7 +167,7 @@ export const productos = [
         "unidad": "m"
       }
     },
-    "descripcion": "Modelo Naza con dos medidas principales de referencia y camastro de 0,65 × 0,65 m, informado por separado.",
+    "descripcion": "Consultá las opciones de tapizado, color y terminaciones.",
     "imagen": null,
     "imagenes": [
       {
@@ -190,7 +190,7 @@ export const productos = [
       "unidad": "m",
       "alturaInformada": false
     },
-    "descripcion": "Modelo Madrid con medidas de referencia de 1,60 × 0,90 m.",
+    "descripcion": "Consultá las opciones de tapizado, color y terminaciones.",
     "imagen": null,
     "imagenes": [
       {

@@ -69,6 +69,7 @@ http://localhost:8000
 luxor-muebles/
 ├── index.html
 ├── producto.html
+├── favicon.ico
 ├── css/
 │   └── styles.css
 ├── js/
@@ -115,6 +116,86 @@ luxor-muebles/
 
 **Opiniones:** las reseñas verificadas y autorizadas se pueden incorporar desde `js/opiniones.js`.
 
+### Experiencias reales
+
+`js/opiniones.js` contiene diez transcripciones anonimizadas proporcionadas por el
+responsable. Las diez tienen `aprobada: true` tras su autorización expresa y se
+muestran directamente en la homepage normal. No dependen de una vista previa,
+parámetros de URL ni servidores especiales. El filtro de aprobación sigue vigente.
+
+Cada entrada tiene `id` único, `texto` original, `fuente`, `fecha` ISO y `aprobada`.
+Para incorporar o quitar opiniones, editar el array; cambiar la aprobación a `true`
+solo tras autorización documentada. No se muestran nombres, iniciales, perfiles,
+estrellas ni etiquetas de comprador verificado. Se presenta mes y año, sin reescribir
+los textos. Las capturas originales deben cotejarse antes de publicar.
+
+Cero aprobadas: respaldo editorial. Una: tarjeta sin controles. Varias: carril
+horizontal nativo con Scroll Snap, contador `01 / 10` y pausa/reanudación.
+Con teclado, enfocar el carril y usar flechas o Inicio/Fin. En móvil se desliza
+con el dedo; en desktop se puede usar trackpad o arrastrar los márgenes de las
+tarjetas. El texto conserva su selección nativa. No se intercepta la rueda vertical.
+La navegación circular vuelve al inicio sin recorrer rápidamente todo el carril.
+
+El autoplay espera 4 segundos completos tras cada desplazamiento. No se pausa
+por hover ni por navegación manual terminada: se pausa mientras hay gesto, foco
+dentro, pestaña oculta o carrusel fuera del viewport. La pausa explícita se conserva
+hasta elegir reanudar. Movimiento reducido desactiva autoplay y scroll animado.
+Sin IntersectionObserver se conserva la navegación manual. Solo se anuncia la
+posición tras movimientos manuales; los automáticos no generan avisos repetitivos.
+Los slides inactivos usan `inert` y `aria-hidden`.
+
+En móvil las tarjetas tienen altura natural: fuente y fecha quedan junto al texto.
+El carril reserva la altura de la opinión más larga, con fondo oscuro debajo de
+las tarjetas cortas, para conservar la posición de controles y CTA sin saltos.
+La tarjeta marfil contrasta con la ambientación decorativa propia de Opiniones:
+`assets/images/marca/hero-opinion.webp`, con overlay cálido y encuadre responsive.
+El JPEG original `hero-opinion.jpg` se conserva intacto: 1168 × 784 px, 311.000 bytes.
+La versión WebP mantiene las dimensiones y pesa 128.220 bytes (58,8 % menos),
+codificada localmente con calidad 86 %. No se presenta como producto, cliente ni
+instalación real. Para reemplazarla, actualizar `--reviews-image` en `.reviews-panel`.
+El fondo carbón permanece como respaldo.
+
+Las instrucciones de Destacados y Opiniones están visualmente ocultas y conservan
+sus referencias ARIA. La nota visible de Opiniones se retiró; los datos mantienen
+la anonimización y aprobación. La aclaración comercial de Catálogo se conserva
+debajo de las tarjetas para despejar el encabezado sin perder información importante.
+Al finalizar cada desplazamiento se corrige la alineación a partir de la posición
+real de la tarjeta, sin depender del redondeo de columnas fraccionarias.
+
+WhatsApp conserva su configuración general. El CTA de Facebook de esta sección utiliza
+la fuente de recomendaciones proporcionada, con `&sk=reviews`; no se modifican otros
+enlaces sociales. No se implementa conexión a Facebook ni se guardan datos de prueba.
+
+Validado en Chrome a 375, 768, 1024 y 1440 px, con texto al 200 %, estados
+cero/una/diez opiniones, rotación y pausas, teclado y prefijo `/luxor-muebles/`.
+El arrastre se verificó con entradas de mouse en Chrome. Swipe y desplazamiento
+horizontal se comprobaron con emulación táctil y eventos de rueda del navegador;
+la pestaña oculta se simuló. Queda la revisión con celular y trackpad físicos.
+No hubo errores JavaScript ni recursos de la sección faltantes.
+
+### Favicon y metadatos
+
+Ambas páginas utilizan rutas relativas para `favicon.ico` (16, 32 y 48 px),
+`assets/icons/favicon-32.png` y `assets/icons/apple-touch-icon.png` (180 px).
+Se derivan únicamente del símbolo central del logo oficial
+`assets/images/luxor-logo-fondo-oscuro.png`, recortado sin las letras adyacentes
+y reducido sobre fondo carbón; los logos originales permanecen intactos.
+Los recursos se generaron localmente sin instalar dependencias. El ICO en la raíz
+también responde a la solicitud automática del navegador y resuelve el 404 anterior.
+
+Se conservan los títulos, metadescripciones, idioma `es-AR` y viewport de las dos
+páginas. La ficha actualiza su título con el modelo seleccionado mediante JavaScript.
+Las rutas funcionan desde la raíz (incluida Cloudflare Pages) y bajo
+`/luxor-muebles/` en GitHub Pages. No hace falta un proceso de compilación;
+la carpeta publicada debe contener directamente `index.html` y los recursos.
+
+Comprobado localmente en Chrome: iconos con respuesta HTTP 200 desde ambas bases,
+homepage y ocho fichas sin errores JavaScript, y sin desbordamientos a 375, 768,
+1024 y 1440 px. Falta comprobar visualmente el icono en la pestaña de una ventana
+normal y en los alojamientos reales tras un despliegue autorizado.
+Pendiente detectado: `#lista-productos` referencia `catalogo-nota` mediante
+`aria-describedby`, pero ese elemento no existe actualmente; revisar por separado.
+
 ## Estado del proyecto
 
 El catálogo contiene ocho modelos: Chicago, Nube, Valentina, Denver, Nube Max,
@@ -130,6 +211,11 @@ del responsable. Naza utiliza `assets/images/productos/naza/naza-1.jpeg`.
 principales (1,80 × 0,90 m o 2 × 0,90 m) y camastro de 0,65 × 0,65 m independiente;
 no se suman dimensiones. Todas las medidas y opciones siguen sujetas a confirmación.
 
+Las descripciones no repiten el nombre ni las medidas: estas se muestran en su bloque
+específico. Las fichas reutilizan el footer visual de la homepage, con enlaces de regreso
+a sus secciones. `js/comunes.js` comparte el año dinámico y los enlaces generales de
+WhatsApp; la consulta personalizada de cada ficha conserva sus preferencias.
+
 El sitio cuenta con las principales funcionalidades del MVP implementadas.
 
 Antes de su lanzamiento comercial definitivo, quedan pendientes:
@@ -137,7 +223,7 @@ Antes de su lanzamiento comercial definitivo, quedan pendientes:
 - Incorporar fotografías autorizadas de los productos.
 - Confirmar medidas, precios y características comerciales.
 - Validar las opciones reales de personalización.
-- Incorporar testimonios verificados y autorizados.
+- Incorporar nuevas recomendaciones únicamente con verificación y autorización.
 - Completar los datos comerciales y las condiciones de entrega.
 - Realizar las pruebas finales de rendimiento y experiencia de usuario.
 

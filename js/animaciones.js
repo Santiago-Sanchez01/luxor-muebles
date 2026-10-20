@@ -2,7 +2,7 @@
 export const iniciarAnimaciones = () => {
   if (!('IntersectionObserver' in window) || !Element.prototype.animate) return;
   const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const selector = '.product-card, .review-card, .personalization-steps li, .about-heading, .about-story, .contact-heading, .contact-conversation, .product-detail-info';
+  const selector = '.product-card, .review-card:not(.review-carousel-card), .personalization-steps li, .about-heading, .about-story, .contact-heading, .contact-conversation, .product-detail-info';
   const seen = new WeakSet();
   const pending = new Set();
   const active = new Map();

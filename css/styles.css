@@ -1065,23 +1065,44 @@ main > .hero {
 
 /* 13. Opiniones aprobadas y estado editorial sin testimonios */
 .reviews-editorial {
-  color: var(--color-charcoal);
-  background: var(--color-warm-white);
+  color: var(--color-warm-white);
+}
+
+.reviews-panel {
+  padding: clamp(1.25rem, 3.5vw, 3rem);
+  /* Ambientación decorativa; no es una fotografía de producto ni de clientes. */
+  --reviews-image: url("../assets/images/marca/hero-opinion.webp");
+  background-color: var(--color-charcoal);
+  background-image: linear-gradient(100deg, rgb(23 20 18 / 94%), rgb(23 20 18 / 68%)),
+    var(--reviews-image), radial-gradient(ellipse at top right, #493c30, var(--color-charcoal));
+  background-size: cover;
+  background-position: center, 60% center, center;
+  border: 1px solid rgb(213 196 175 / 22%);
+}
+
+.reviews-panel :focus-visible {
+  outline-color: var(--color-warm-white);
+}
+
+.reviews-panel .review-card :focus-visible {
+  outline-color: var(--color-accent);
 }
 
 .reviews-heading {
+  min-width: 0;
   max-width: 48rem;
+  margin-inline: auto;
 }
 
 .reviews-label {
-  color: var(--color-accent);
+  color: var(--color-accent-on-dark);
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.12em;
 }
 
 .reviews-heading h2 {
-  margin-block: var(--space-2) var(--space-3);
+  margin-block: 0.875rem var(--space-2);
   font-family: var(--font-hero);
   font-weight: 400;
   font-size: clamp(2rem, 3.5vw, 3.25rem);
@@ -1094,6 +1115,7 @@ main > .hero {
   padding: clamp(1.5rem, 4vw, 3rem);
   border-block: 1px solid var(--color-border);
   border-left: 3px solid var(--color-accent);
+  background: linear-gradient(110deg, rgb(213 196 175 / 22%), transparent);
 }
 
 .reviews-empty-title {
@@ -1108,38 +1130,142 @@ main > .hero {
 }
 
 .reviews-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--space-3);
+  position: relative;
+  display: flex;
+  gap: var(--space-2);
   padding: 0;
-  margin-top: var(--space-4);
+  margin-top: 0.75rem;
   list-style: none;
+  align-items: stretch;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 0;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-beige) transparent;
+  cursor: grab;
 }
 
 .reviews-grid > li {
+  flex: 0 0 100%;
+  width: 100%;
+  max-width: 100%;
   min-width: 0;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.reviews-grid.is-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+  user-select: none;
+}
+
+.reviews-carousel {
+  min-width: 0;
+  width: 100%;
+  max-width: 48rem;
+  margin-inline: auto;
+}
+
+.review-carousel-card {
+  position: relative;
+  height: 100%;
+  overflow-wrap: anywhere;
+}
+
+.review-carousel-card blockquote::before {
+  content: '“';
+  display: block;
+  color: var(--color-accent);
+  font-family: var(--font-hero);
+  font-size: 2.5rem;
+  line-height: 0.7;
+  margin-bottom: 0.75rem;
+}
+
+.review-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem 0.75rem;
+  margin-top: 0.75rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgb(213 196 175 / 25%);
+}
+
+.review-controls-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+#opinion-posicion {
+  min-width: 5ch;
+  text-align: center;
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.review-pause {
+  display: flex;
+  max-width: 100%;
+  margin: 0;
+  min-height: 44px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+  color: var(--color-warm-white);
+  background: transparent;
+  border-color: transparent;
+}
+
+.review-pause:hover:not(:disabled) {
+  color: var(--color-charcoal);
+  background: var(--color-warm-white);
+}
+
+.review-pause:disabled {
+  cursor: default;
 }
 
 .review-card {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
-  height: 100%;
+  gap: var(--space-2);
   margin: 0;
-  padding: var(--space-3);
+  padding: clamp(1.25rem, 2.5vw, 1.75rem);
   border: 1px solid var(--color-border);
+  color: var(--color-charcoal);
+  background: var(--color-warm-white);
+  box-shadow: 0 6px 18px rgb(0 0 0 / 8%);
 }
 
 .review-card blockquote {
   margin: 0;
+  font-family: var(--font-hero);
+  font-size: clamp(1.125rem, 1.3vw, 1.25rem);
+  line-height: 1.5;
   white-space: pre-line;
+  cursor: text;
 }
 
 .review-card figcaption {
-  display: grid;
-  gap: var(--space-1);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.375rem var(--space-2);
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--color-border);
+  font-size: 0.8125rem;
   margin-top: auto;
-  font-size: 0.875rem;
+  cursor: text;
 }
 
 .review-card a {
@@ -1150,18 +1276,74 @@ main > .hero {
 
 .reviews-cta {
   max-width: 100%;
-  margin-top: var(--space-3);
 }
 
-@media (min-width: 48rem) {
+.reviews-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  justify-content: center;
+}
+
+.reviews-actions > .button {
+  width: 100%;
+  max-width: 100%;
+}
+
+.reviews-facebook {
+  color: var(--color-warm-white);
+  background: rgb(23 20 18 / 60%);
+  border-color: var(--color-warm-gray);
+}
+
+.reviews-facebook:hover {
+  color: var(--color-charcoal);
+  background: var(--color-warm-white);
+}
+
+@media (max-width: 47.99rem) {
+  .reviews-panel {
+    background-position: center, 68% center, center;
+  }
+
+  /* El carril conserva la altura del texto más largo; las tarjetas cortas no se estiran. */
   .reviews-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: flex-start;
+  }
+
+  .review-carousel-card {
+    height: auto;
+    padding: 1rem;
+  }
+
+  .review-card figcaption {
+    margin-top: 0;
   }
 }
 
 @media (min-width: 64rem) {
-  .reviews-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  .reviews-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    column-gap: clamp(2rem, 3.5vw, 3rem);
+    align-items: start;
+  }
+
+  .reviews-heading h2 {
+    font-size: clamp(2rem, 3vw, 3rem);
+  }
+
+  .reviews-empty,
+  .reviews-actions {
+    grid-column: 1 / -1;
+  }
+
+}
+
+@media (min-width: 40rem) {
+  .reviews-actions > .button {
+    width: auto;
   }
 }
 

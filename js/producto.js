@@ -5,6 +5,9 @@ import { crearEnlaceWhatsApp } from './config.js';
 import { obtenerImagenes } from './imagenes.js';
 import { iniciarAnimaciones } from './animaciones.js';
 import { formatearMedidas } from './medidas.js';
+import { iniciarEnlacesComunes } from './comunes.js';
+
+iniciarEnlacesComunes();
 
 // Solo se admite un ID existente: nunca elegir otro producto por defecto.
 const id = new URLSearchParams(window.location.search).get('id');
