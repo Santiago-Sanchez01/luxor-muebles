@@ -15,6 +15,23 @@ const producto = productos.find((item) => item.id === id);
 const heading = document.querySelector('#producto-nombre');
 const status = document.querySelector('#producto-estado');
 
+// El HTML inicial no declara canonical ni noindex: el ID determina un único estado SEO.
+const descriptionMeta = document.querySelector('meta[name="description"]');
+if (producto) {
+  const canonicalUrl = new URL('https://luxormuebles.com/producto');
+  canonicalUrl.searchParams.set('id', producto.id);
+  const canonical = document.createElement('link');
+  canonical.rel = 'canonical';
+  canonical.href = canonicalUrl.href;
+  document.head.append(canonical);
+  descriptionMeta.content = `Conocé el modelo ${producto.nombre} de Luxor Muebles. Revisá sus medidas de referencia y prepará tu consulta sobre tapizado, color y terminaciones.`;
+} else {
+  const robotsMeta = document.createElement('meta');
+  robotsMeta.name = 'robots';
+  robotsMeta.content = 'noindex';
+  document.head.append(robotsMeta);
+}
+
 const renderGallery = (item) => {
   const main = document.querySelector('#galeria-principal');
   const controls = document.querySelector('#galeria-controles');

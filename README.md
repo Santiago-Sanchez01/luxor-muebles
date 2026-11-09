@@ -70,6 +70,8 @@ luxor-muebles/
 ├── index.html
 ├── producto.html
 ├── favicon.ico
+├── sitemap.xml
+├── robots.txt
 ├── css/
 │   └── styles.css
 ├── js/
@@ -238,3 +240,40 @@ El proyecto se encuentra publicado mediante **GitHub Pages**, utilizando la rama
 ---
 
 **Luxor Muebles** — Proyecto web en desarrollo.
+
+### Canonical y normalización SEO — Fase 08B.1
+
+El dominio oficial es `https://luxormuebles.com/`, declarado como canonical de la
+homepage. Cada ficha válida agrega mediante `js/producto.js` un único canonical
+`https://luxormuebles.com/producto?id=ID` y una metadescripción con su modelo.
+El HTML inicial de `producto.html` no declara canonical ni noindex genéricos.
+Solo un ID inexistente o ausente incorpora `noindex`; nunca afecta a los ocho modelos válidos.
+
+Los enlaces siguen siendo relativos (`./producto.html?id=ID`) para funcionar en
+local y GitHub Pages bajo `/luxor-muebles/`. En producción se confirmó que Cloudflare
+redirige esas URL con 307 hacia `/producto?id=ID`. Se omiten parámetros ajenos al ID
+en el canonical, sin modificar la dirección ni las preferencias del visitante.
+El estado inválido continúa respondiendo HTTP 200 en el alojamiento estático:
+`noindex` depende de ejecutar JavaScript; queda pendiente evaluar un HTTP 404 real
+mediante una configuración segura del alojamiento. No se agregaron sitemap ni robots.txt.
+
+### Sitemap y descubrimiento — Fase 08B.2
+
+`sitemap.xml` contiene nueve URL oficiales: la homepage y las ocho fichas
+`https://luxormuebles.com/producto?id=ID`, alineadas con sus canonical.
+No incluye fechas inventadas, prioridades, dominios técnicos ni modelos eliminados.
+Al agregar o retirar modelos, actualizar el sitemap junto con sus datos y canonical.
+
+`robots.txt` contiene únicamente `Sitemap: https://luxormuebles.com/sitemap.xml`.
+No agrega User-agent, Allow ni Disallow. Con Bot Preference Sync activo, Cloudflare
+[documenta que antepone sus políticas al archivo de origen que responde 200](https://developers.cloudflare.com/bots/additional-configurations/managed-robots-txt/#compatibility-with-existing-robotstxt-files).
+No se desactivaron ni copiaron las políticas administradas; la combinación real
+requiere validación tras publicar. Fuera de Cloudflare, este archivo solo declara el
+sitemap y no reproduce las restricciones administradas del dominio oficial.
+
+Ambos archivos deben incluirse en la raíz de los recursos estáticos publicados.
+Antes del despliegue, `/sitemap.xml` todavía respondía 404 en producción. Tras un
+despliegue autorizado, comprobar HTTP 200 con XML (no HTML), nueve URL y ausencia
+de noindex en el sitemap; comprobar también robots.txt con el bloque administrado
+intacto y la declaración Sitemap. Luego enviar `sitemap.xml` en la propiedad del
+dominio oficial de Google Search Console. No se publicó ni se envió automáticamente.
